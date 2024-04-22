@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="Cards Cards_refresh" th:fragment="pool">
+    <div class="Card" th:each="book: ${books}">
+        <div
+             th:replace="~{fragments/book_card_fragment :: card}">
+        </div>
+    </div>
+    <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#"
+                                                     th:attr="data-refreshshow = ${category},
+                                                     data-refreshquery=${searchWordDto.example},
+                                                     data-refreshid=${refreshid},
+                                                     data-refreshlimit= (${category}=='author' ? '5' : '20')"
+                                                     data-refreshshow="recent"
+                                                     th:text="#{showmore}"
+                                                     data-refreshoffset="0"
+                                                     data-refreshlimit="20">Показать еще</a>
+    </div>
+</div>
+</html>

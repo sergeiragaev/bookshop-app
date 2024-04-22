@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{postponed}">Тут название страницы написать</title>
+    <meta name="description" content="Описание страницы">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link rel="preload" href="/assets/fonts/Montserrat/Montserrat-SemiBold.woff2" as="font" crossorigin="anonymous">
+    <link rel="preload" href="/assets/fonts/Montserrat/Montserrat-Light.woff2" as="font" crossorigin="anonymous">
+    <link rel="preload" href="/assets/fonts/Montserrat/Montserrat-Medium.woff2" as="font" crossorigin="anonymous">
+    <link rel="preload" href="/assets/fonts/Montserrat/Montserrat-ExtraBold.woff2" as="font" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/fonts.min.css?v=04238027">
+    <link rel="stylesheet" href="/assets/css/basic.min.css?v=04238027">
+    <link rel="stylesheet" href="/assets/css/extra.min.css?v=04238027">
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script defer src="/assets/js/scripts.min.js?v=04238027"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#locales").change(function () {
+                let selectedOption = $("#locales").val();
+                if (selectedOption != '') {
+                    window.location.replace('?lang=' + selectedOption);
+                }
+            });
+        });
+    </script>
+</head>
+<body class="Site">
+<header class="Header"
+        th:replace="~{fragments/common_header_fragment :: head(status=${status})}"></header>
+<div class="Middle">
+    <div class="wrap">
+        <main class="Middle-main">
+            <h1 class="Middle-title" th:text="#{postponed}">Отложенное
+            </h1>
+            <h3 th:if="${isPostponedEmpty}" th:text="#{emptypostponed}"></h3>
+            <form class="form Cart Cart_postponed" action="#" method="post">
+                <div class="Cart-product" th:each="book : ${bookPostponed}">
+                    <div class="Cart-block Cart-block_row">
+                        <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="#"
+                                                                   th:href="'/books/' + ${book.slug}">
+                            <img class="Cart-img" th:src="${book.image}"
+                                 th:href="'/books/' + ${book.slug}"
+                                 src="/assets/img/content/main/card.jpg"
+                                 alt="card.jpg"/></a>
+                        </div>
+                        <div class="Cart-block Cart-block_row">
+                            <div class="Cart-block Cart-block_info">
+                                <div class="Cart-author">
+                                    <a href="#" th:each="author, iStat : ${book.getAuthors()}" th:href="'/authors/' + ${author.slug}"
+                                            th:text="${author.name} + (${iStat.last} ? '' : ',&#32;')">Борис Васильевич Бедный</a>
+                                </div>
+                                <div class="Cart-title"><a href="#"  th:href="'/books/' + ${book.slug}" th:text="${book.title}">Жизнь</a>
+                                </div>
+                                <div class="Cart-rating"><span class="Rating"><span class="Rating-stars"><span
+                                        class="Rating-star Rating-star_view"
+                                        th:class="${book.rating > 0 ? 'Rating-star Rating-star_view' : 'Rating-star'}"
+                                >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+                            <g>
+                              <g>
+                                <path fill="#ffc000"
+                                      d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                              </g>
+                            </g>
+                          </svg></span><span class="Rating-star Rating-star_view"
+                                             th:class="${book.rating > 1 ? 'Rating-star Rating-star_view' : 'Rating-star'}"
+                                >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+                            <g>
+                              <g>
+                                <path fill="#ffc000"
+                                      d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                              </g>
+                            </g>
+                          </svg></span><span class="Rating-star Rating-star_view"
+                                             th:class="${book.rating > 2 ? 'Rating-star Rating-star_view' : 'Rating-star'}"
+                                >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+                            <g>
+                              <g>
+                                <path fill="#ffc000"
+                                      d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                              </g>
+                            </g>
+                          </svg></span><span class="Rating-star"
+                                             th:class="${book.rating > 3 ? 'Rating-star Rating-star_view' : 'Rating-star'}"
+                                >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+                            <g>
+                              <g>
+                                <path fill="#ffc000"
+                                      d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                              </g>
+                            </g>
+                          </svg></span><span class="Rating-star"
+                                             th:class="${book.rating > 4 ? 'Rating-star Rating-star_view' : 'Rating-star'}"
+                                >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+                            <g>
+                              <g>
+                                <path fill="#ffc000"
+                                      d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                              </g>
+                            </g>
+                          </svg></span></span></span>
+                                </div>
+                                <div class="Cart-buttons">
+                                    <div class="Cart-btn">
+                                        <button class="btn btn_primary btn_outline" data-sendstatus="CART"
+                                                th:attr="data-bookid=${book.slug}"
+                                                data-bookid="[1122]"><span class="btn-icon"><img
+                                                src="/assets/img/icons/shopping-basket.svg" alt="shopping-basket.svg"/></span><span
+                                                class="btn-content" th:text="#{order}">Купить</span>
+                                        </button>
+                                    </div>
+                                    <div class="Cart-btn">
+                                        <button class="btn btn_danger btn_outline" data-sendstatus="UNLINK"
+                                                th:attr="data-bookid = ${'postponed/remove/' + book.slug}"
+                                                data-bookid="[1122]"><span class="btn-icon"><img
+                                                src="/assets/img/icons/trash.svg" alt="trash.svg"/></span><span
+                                                class="btn-content" th:text="#{remove}">Удалить</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="Cart-block Cart-block_price">
+                                <div class="Cart-priceTitle" th:text="#{price}">Цена:
+                                </div>
+                                <div class="Cart-price Cart-price_old" th:text="'₽' + ${book.price}">150 р.
+                                </div>
+                                <div class="Cart-price" th:text="'₽' + ${book.discountPrice()}">100 р.
+                                </div>
+                                <div class="Cart-sale" th:text="${'-' + book.discount} + '%'">-30%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Cart-total" th:if="${!isPostponedEmpty}">
+                    <div class="Cart-block Cart-block_total">
+                    </div>
+                    <div class="Cart-block">
+                        <button class="btn btn_success btn_md Cart-buyAll" data-sendstatus="CART"
+                                data-bookid="[1111, 1122, 1133]" th:text="#{orderall}">Купить все
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+<footer class="Footer" th:replace="~{fragments/common_footer_fragment :: footer}"></footer>
+<script src="/assets/plg/jQuery/jquery-3.5.1.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="Tags" id="tags" th:fragment="cloud">
+    <div class="Tag Tag_xs" th:each="tag : ${tags}"
+         th:class="${
+         tag.books.size() < 0.2 * tags.size() ? 'Tag Tag_xs' :
+         tag.books.size() < 0.4 * tags.size() ? 'Tag Tag_sm' :
+         tag.books.size() < 0.6 * tags.size() ? 'Tag' :
+         tag.books.size() < 0.8 * tags.size() ? 'Tag Tag_md' : 'Tag Tag_lg'}">
+        <a href="/tags/index.html" th:href="'/tags/' + ${tag.slug}" th:text="${tag.name}">современная литература</a>
+    </div>
+</div>
+</html>

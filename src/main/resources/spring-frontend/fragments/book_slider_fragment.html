@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="bookSlider">
+    <div class="Section-header">
+        <h2 class="Section-title" th:with="bar = ${title}" th:text="#{${bar}}" >Рекомендуемое
+        </h2>
+    </div>
+    <div class="Slider Slider_carousel">
+        <div class="Slider-box Cards" data-load="recommended" th:attr="data-load=${title}" data-loadoffset="0" data-loadlimit="6">
+            <div class="Slider-item" th:if="${title}=='recommended'" th:each="book : ${recommended} ">
+                <div class="Slider-content"
+                     th:replace="~{fragments/book_card_fragment :: card}">
+                </div>
+            </div>
+            <div class="Slider-item" th:if="${title}=='recent'" th:each="book : ${recent}">
+                <div class="Slider-content"
+                     th:replace="~{fragments/book_card_fragment :: card}">
+                </div>
+            </div>
+            <div class="Slider-item" th:if="${title}=='popular'" th:each="book : ${popular}">
+                <div class="Slider-content"
+                     th:replace="~{fragments/book_card_fragment :: card}">
+                </div>
+            </div>
+            <th:block th:if="${title}=='authorbooks'">
+                <div class="Slider-item" th:each="book : ${books}">
+                    <div class="Slider-content"
+                         th:replace="~{fragments/book_card_fragment :: card}">
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <div class="Slider-navigateWrap">
+            <div class="Slider-navigate">
+            </div>
+        </div>
+        <div class="Slider-load">
+            <div class="Slider-load-text">Идет загрузка данных
+            </div>
+        </div>
+    </div>
+</div>
+</html>
