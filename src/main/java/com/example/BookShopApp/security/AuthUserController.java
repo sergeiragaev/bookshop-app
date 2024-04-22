@@ -43,10 +43,10 @@ public class AuthUserController {
     public ContactConfirmationResponse handleContactConfirmation(@RequestBody ContactConfirmationPayload payload){
         ContactConfirmationResponse response = new ContactConfirmationResponse();
         response.setResult("true");
-        if (!payload.getContact().contains("@")) {
-            String smsCodeString = smsService.sendSecretCodeSms(payload.getContact());
-            smsService.saveNewCode(new SmsCode(smsCodeString, 60)); //expires in 1 min.
-        }
+//        if (!payload.getContact().contains("@")) {
+//            String smsCodeString = smsService.sendSecretCodeSms(payload.getContact());
+//            smsService.saveNewCode(new SmsCode(smsCodeString, 60)); //expires in 1 min.
+//        }
         return response;
     }
 
@@ -54,14 +54,14 @@ public class AuthUserController {
     @ResponseBody
     public ContactConfirmationResponse handleRequestEmailConfirmation(@RequestBody ContactConfirmationPayload payload){
         ContactConfirmationResponse response = new ContactConfirmationResponse();
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("test@mir-kuhni.ru");
-        message.setTo(payload.getContact());
-        SmsCode smsCode = new SmsCode(smsService.generateCode(), 300);
-        smsService.saveNewCode(smsCode);
-        message.setSubject("Bookstore email verification!");
-        message.setText("Verification code is: " + smsCode.getCode());
-        javaMailSender.send(message);
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setFrom("test@mir-kuhni.ru");
+//        message.setTo(payload.getContact());
+//        SmsCode smsCode = new SmsCode(smsService.generateCode(), 300);
+//        smsService.saveNewCode(smsCode);
+//        message.setSubject("Bookstore email verification!");
+//        message.setText("Verification code is: " + smsCode.getCode());
+//        javaMailSender.send(message);
         response.setResult("true");
         return response;
     }
@@ -71,9 +71,10 @@ public class AuthUserController {
     public ContactConfirmationResponse handleApproveContact(@RequestBody ContactConfirmationPayload payload){
         ContactConfirmationResponse response = new ContactConfirmationResponse();
 
-        if (smsService.verifyCode(payload.getCode())) {
-            response.setResult("true");
-        }
+//        if (smsService.verifyCode(payload.getCode())) {
+//            response.setResult("true");
+//        }
+        response.setResult("true");
         return response;
     }
     @PostMapping("/reg")
